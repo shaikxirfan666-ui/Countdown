@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>December 31 Countdown</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;background:#111;color:#fff}
+body{display:flex;align-items:center;justify-content:center;padding:18px}
+.card{width:min(420px,100%);text-align:center;border:1px solid #333;border-radius:28px;padding:34px 22px;background:#181818}
+.small{font-size:14px;letter-spacing:2px;color:#aaa;font-weight:700}
+.days{font-size:clamp(72px,24vw,120px);line-height:.95;font-weight:900;margin:16px 0 4px;letter-spacing:-5px}
+.unit{font-size:15px;color:#aaa;letter-spacing:3px;font-weight:700}
+.date{margin-top:28px;padding-top:20px;border-top:1px solid #333;font-size:18px;font-weight:700}
+.sub{margin-top:8px;font-size:13px;color:#888}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="small">DAYS LEFT UNTIL</div>
+  <div id="days" class="days">--</div>
+  <div class="unit">DAYS</div>
+  <div class="date">December 31, 2026</div>
+  <div id="today" class="sub"></div>
+</main>
+<script>
+const deadline = Date.UTC(2026,11,31);
+function update(){
+  const now = new Date();
+  const todayUTC = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  const days = Math.max(0, Math.ceil((deadline-todayUTC)/86400000));
+  document.getElementById('days').textContent = days;
+  document.getElementById('today').textContent =
+    now.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
+}
+update();
+setInterval(update,60000);
+</script>
+</body>
+</html>
